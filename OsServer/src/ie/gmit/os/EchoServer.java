@@ -9,6 +9,8 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Random;
+import java.util.ArrayList;
 
 public class EchoServer {
   public static void main(String[] args) throws Exception {
@@ -23,12 +25,19 @@ public class EchoServer {
 }
 
 class ClientServiceThread extends Thread {
+  //Variables
   Socket clientSocket;
   String message;
   int clientID = -1;
   boolean running = true;
   ObjectOutputStream out;
   ObjectInputStream in;
+  
+  int choice;
+  Random rand = new Random();
+  int messageInt;
+  double messageDouble;
+  ArrayList<Profile> list = new ArrayList<Profile>();
 
   ClientServiceThread(Socket s, int i) {
     clientSocket = s;
@@ -46,6 +55,46 @@ class ClientServiceThread extends Thread {
 			ioException.printStackTrace();
 		}
 	}
+  
+  public void UI() {
+	  
+	  if(choice == 1) {
+		  addUser();
+	  } else if(choice ==2) {
+		  login();
+	  } 
+  }
+  
+  public void addUser() throws ClassNotFoundException, IOException {
+	  sendMessage("Please enter your name: ");
+	  message = (String)in.readObject();
+	  String name = message;
+	  
+	  sendMessage("Please enter your address: ");
+	  message = (String)in.readObject();
+	  String address = message;
+	  
+	  int PPS=rand.nextInt(10) + 1;
+	  
+	  sendMessage("Please enter your age: ");
+	  messageInt = (int)in.readObject();
+	  int age = messageInt;
+	  
+	  sendMessage("Please enter your weight: ");
+	  messageDouble = (double)in.readObject();
+	  double weight = messageDouble;
+	  
+	  sendMessage("Please enter your height: ");
+	  messageDouble = (double)in.readObject();
+	  double height = messageDouble;
+	  
+	  list.add(new Profile(name, address, PPS, age, weight, height));
+	  
+	  System.out.println("/n/n" + list);
+	  
+	  
+  }
+  
   public void run() {
     System.out.println("Accepted Client : ID - " + clientID + " : Address - "
         + clientSocket.getInetAddress().getHostName());
@@ -64,51 +113,12 @@ class ClientServiceThread extends Thread {
 				sendMessage("Press 1 for string testing\n Press 2 for the calculator \nPress 3 to exit");
 				message = (String)in.readObject();
 				
-				if(message.compareToIgnoreCase("1")==0)
-				{
-					System.out.println("User wishes to complete the string test");
-					sendMessage("Please enter a string");
-					String string1 = (String)in.readObject();
-					sendMessage("Please enter a string");
-					String string2 = (String)in.readObject();
+				if(message.compareToIgnoreCase("1")==0){
 					
-					if(string1.equals(string2))
-						sendMessage("Both strings are the same");
-					else if(string1.compareToIgnoreCase(string2)>0)
-						sendMessage("String 1 is bigger");
-					else
-						sendMessage("String 2 is bigger");
 				}
 				
-				else if(message.compareToIgnoreCase("2")==0)
-				{
-					System.out.println("User wishes to complete the calculator test");
+				else if(message.compareToIgnoreCase("2")==0){
 					
-					sendMessage("Press 1 for Multiply\nPress 2 for square root\n");
-					message=(String)in.readObject();
-					
-					if(message.equalsIgnoreCase("1"))
-					{
-						sendMessage("Please enter number 1");
-						message = (String)in.readObject();
-						int a = Integer.parseInt(message);
-						
-						sendMessage("Please enter number 2");
-						message = (String)in.readObject();
-						int b = Integer.parseInt(message);
-						
-						sendMessage(""+(a*b));
-					}
-					
-					else if(message.equalsIgnoreCase("2"))
-					{
-						sendMessage("Please enter the number");
-						message = (String)in.readObject();
-						int a = Integer.parseInt(message);
-						
-						sendMessage(""+Math.sqrt(a));
-						
-					}
 					
 				}
 				
@@ -119,9 +129,7 @@ class ClientServiceThread extends Thread {
 			}
 			
     	}while(!message.equals("3"));
-      
-		System.out.println("Ending Client : ID - " + clientID + " : Address - "
-		        + clientSocket.getInetAddress().getHostName());
+		System.out.println("Ending Client : ID - " + clientID + " : Address - " + clientSocket.getInetAddress().getHostName());
     } catch (Exception e) {
       e.printStackTrace();
     }

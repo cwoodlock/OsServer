@@ -9,7 +9,7 @@ public class Profile {
 	private String address;
 	private int PPS;
 	private int age;
-	private double weigth;
+	private double weight;
 	private double height;
 	
 	//Constructors
@@ -17,12 +17,12 @@ public class Profile {
 		
 	}
 	
-	public Profile(String name, String address,int age, int PPS, double weigth, double height){
+	public Profile(String name, String address,int age, int PPS, double weight, double height){
 		this.name =name;
 		this.address = address;
 		this.age = age;
 		this.PPS =PPS;
-		this.weigth = weigth;
+		this.weight = weight;
 		this.height = height;
 	}
 	
@@ -60,12 +60,12 @@ public class Profile {
 		this.age = age;
 	}
 
-	public double getWeigth() {
-		return weigth;
+	public double getWeight() {
+		return weight;
 	}
 
-	public void setWeigth(double weigth) {
-		this.weigth = weigth;
+	public void setWeight(double weight) {
+		this.weight = weight;
 	}
 
 	public double getHeight() {
@@ -79,7 +79,7 @@ public class Profile {
 	//toString method
 	@Override
 	public String toString() {
-		return "Profile [name=" + name + ", address=" + address + ", PPS=" + PPS + ", age=" + age + ", weigth=" + weigth
+		return "Profile [name=" + name + ", address=" + address + ", PPS=" + PPS + ", age=" + age + ", weight=" + weight
 				+ ", height=" + height + "]";
 	}
 	
