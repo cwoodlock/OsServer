@@ -7,6 +7,8 @@ public class Profile {
 	//Variables 
 	private String name;
 	private String address;
+	private String username;
+	private String password; 
 	private int PPS;
 	private int age;
 	private double weight;
@@ -17,9 +19,11 @@ public class Profile {
 		
 	}
 	
-	public Profile(String name, String address,int age, int PPS, double weight, double height){
+	public Profile(String name, String address,String username, String password,int age, int PPS, double weight, double height){
 		this.name =name;
 		this.address = address;
+		this.username =username;
+		this.password = password;
 		this.age = age;
 		this.PPS =PPS;
 		this.weight = weight;
@@ -76,14 +80,27 @@ public class Profile {
 		this.height = height;
 	}
 
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
 	//toString method
 	@Override
 	public String toString() {
-		return "Profile [name=" + name + ", address=" + address + ", PPS=" + PPS + ", age=" + age + ", weight=" + weight
-				+ ", height=" + height + "]";
+		return "Profile [name=" + name + ", address=" + address + ", username=" + username + ", password=" + password
+				+ ", PPS=" + PPS + ", age=" + age + ", weight=" + weight + ", height=" + height + "]";
 	}
-	
-	
-
 	
 }

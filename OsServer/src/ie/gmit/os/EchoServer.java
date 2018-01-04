@@ -27,17 +27,18 @@ public class EchoServer {
 class ClientServiceThread extends Thread {
   //Variables
   Socket clientSocket;
-  String message;
+  String message, message2, tmpstr;
   int clientID = -1;
   boolean running = true;
   ObjectOutputStream out;
   ObjectInputStream in;
   
-  int choice;
+  int choice, tempint;
   Random rand = new Random();
   int messageInt;
   double messageDouble;
   ArrayList<Profile> list = new ArrayList<Profile>();
+  boolean flag = false;
 
   ClientServiceThread(Socket s, int i) {
     clientSocket = s;
@@ -56,7 +57,7 @@ class ClientServiceThread extends Thread {
 		}
 	}
   
-  public void UI() {
+  public void UI() throws ClassNotFoundException, IOException {
 	  
 	  if(choice == 1) {
 		  addUser();
@@ -74,7 +75,22 @@ class ClientServiceThread extends Thread {
 	  message = (String)in.readObject();
 	  String address = message;
 	  
+	  sendMessage("Please enter your user name: ");
+	  message = (String)in.readObject();
+	  String username = message;
+	  
+	  sendMessage("Please enter your password: ");
+	  message = (String)in.readObject();
+	  String password = message;
+	  
 	  int PPS=rand.nextInt(10) + 1;
+	  for(Profile a:list){
+			while(a.getPPS()==PPS)
+			{
+				PPS=rand.nextInt(10) + 1;
+			}
+			break;
+		}
 	  
 	  sendMessage("Please enter your age: ");
 	  messageInt = (int)in.readObject();
@@ -88,11 +104,33 @@ class ClientServiceThread extends Thread {
 	  messageDouble = (double)in.readObject();
 	  double height = messageDouble;
 	  
-	  list.add(new Profile(name, address, PPS, age, weight, height));
+	  list.add(new Profile(name, address,username, password, PPS, age, weight, height));
 	  
 	  System.out.println("/n/n" + list);
+  }
+  
+  public void login()throws ClassNotFoundException, IOException {
 	  
+	  sendMessage("Please enter your user name: ");
+	  message = (String)in.readObject();
 	  
+	  sendMessage("Please enter your password: ");
+	  message2 = (String)in.readObject();
+	  
+	  for(Profile a:list){
+			if(a.getUsername().equals(message) && a.getPassword().equals(message2))
+			{
+				tmpstr=a.getName();
+				tempint = a.getPPS();
+				flag=true;
+				break;
+			}
+			else if(a.getUsername()!=(message) && a.getPassword()!=(message2))
+			{
+				System.out.println("Plaes try again");
+				break;
+			}
+		}
   }
   
   public void run() {
@@ -110,18 +148,17 @@ class ClientServiceThread extends Thread {
 		do{
 			try
 			{
-				sendMessage("Press 1 for string testing\n Press 2 for the calculator \nPress 3 to exit");
+				sendMessage("Press 1 for new user\n Press 2 for returning user \n");
 				message = (String)in.readObject();
+				choice = new Integer(message);
 				
-				if(message.compareToIgnoreCase("1")==0){
-					
+				
+				UI();	//Enter the ui menu
+				if(flag == true) {
+					do {
+						
+					}while(flag == true);
 				}
-				
-				else if(message.compareToIgnoreCase("2")==0){
-					
-					
-				}
-				
 				
 			}
 			catch(ClassNotFoundException classnot){
