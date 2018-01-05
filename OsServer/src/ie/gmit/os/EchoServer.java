@@ -33,7 +33,7 @@ class ClientServiceThread extends Thread {
   ObjectOutputStream out;
   ObjectInputStream in;
   
-  int choice, tempint;
+  int choice, tempint, choice2;
   Random rand = new Random();
   int messageInt;
   double messageDouble;
@@ -133,7 +133,47 @@ class ClientServiceThread extends Thread {
 		}
   }
   
-  public void run() {
+  public void UILoginComp() throws ClassNotFoundException, IOException {
+	  
+	  sendMessage("You have logged in successfully \n Press 1 to add a fitness record \n Press 2 to add a meal \n Press 3 to view the last 10 meal records \n Press 4 to view the last 10 fitness records \n Press 5 to delete a record \n");
+	  message = (String)in.readObject();
+	  choice2 = new Integer(message);
+	  
+	  if(choice == 1) {
+		  addFitness();
+	  }else if (choice == 2) {
+		  addMeal();
+	  }else if (choice == 3) {
+		  displayMeal();
+	  }else if (choice == 4) {
+		  displayFitness();
+	  }else if (choice == 5) {
+		  delete();
+	  }
+	  
+  }
+  
+  public void delete() {
+	
+  }
+
+  public void displayFitness() {
+	
+  }
+
+  public void displayMeal() {
+	
+  }
+
+  public void addMeal() {
+	
+  }
+
+  public void addFitness() {
+	
+  }
+
+public void run() {
     System.out.println("Accepted Client : ID - " + clientID + " : Address - "
         + clientSocket.getInetAddress().getHostName());
     try 
@@ -154,9 +194,9 @@ class ClientServiceThread extends Thread {
 				
 				
 				UI();	//Enter the ui menu
-				if(flag == true) {
+				if(flag == true) {	//If login() was successful run the ui when logged in
 					do {
-						
+						UILoginComp();	//Run the method for UI login completed
 					}while(flag == true);
 				}
 				
