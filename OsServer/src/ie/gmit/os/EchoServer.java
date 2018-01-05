@@ -141,15 +141,15 @@ class ClientServiceThread extends Thread {
 	  message = (String)in.readObject();
 	  choice2 = new Integer(message);
 	  
-	  if(choice == 1) {
+	  if(choice2 == 1) {
 		  addFitness();
-	  }else if (choice == 2) {
+	  }else if (choice2 == 2) {
 		  addMeal();
-	  }else if (choice == 3) {
+	  }else if (choice2 == 3) {
 		  displayMeal();
-	  }else if (choice == 4) {
+	  }else if (choice2 == 4) {
 		  displayFitness();
-	  }else if (choice == 5) {
+	  }else if (choice2 == 5) {
 		  delete();
 	  }
 	  
