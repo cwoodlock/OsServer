@@ -1,4 +1,10 @@
 package ie.gmit.os;
+/*
+ * Colm Woodlock
+ * G00341460
+ * https://github.com/cwoodlock/OsServer
+ * This is a project for 3rd year module Operating Systems in GMIT
+ */
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -49,6 +55,7 @@ class ClientServiceThread extends Thread {
     clientID = i;
   }
 
+  //This sends the message to the client
   void sendMessage(String msg)
 	{
 		try{
@@ -61,6 +68,7 @@ class ClientServiceThread extends Thread {
 		}
 	}
   
+  //This controls the UI which is shown to the user when they first connect
   public void UI() throws ClassNotFoundException, IOException {
 	  
 	  if(choice == 1) {
@@ -70,6 +78,7 @@ class ClientServiceThread extends Thread {
 	  } 
   }
   
+  //This adds a user to the database
   public void addUser() throws ClassNotFoundException, IOException {
 	  sendMessage("Please enter your name: ");
 	  message = (String)in.readObject();
@@ -96,6 +105,8 @@ class ClientServiceThread extends Thread {
 			break;
 		}
 	  
+	  //HERE I WAS GETTING AN ERROR TRYING TO READ IN INTS/DOUBLES SO I GAVE THEM VALUES TO TEST OTHER FEATURES
+	  
 	 //sendMessage("Please enter your age: ");
 	 // messageInt = (int)in.readObject();
 	  int age = 15;//messageInt;
@@ -113,6 +124,7 @@ class ClientServiceThread extends Thread {
 	  System.out.println("/n/n" + list);
   }
   
+  //This should perform the login check
   public void login()throws ClassNotFoundException, IOException {
 	  
 	  sendMessage("Please enter your user name: ");
@@ -137,6 +149,7 @@ class ClientServiceThread extends Thread {
 		}
   }
   
+  //When log in is successful this displays the nect menu and controls it
   public void UILoginComp() throws ClassNotFoundException, IOException {
 	  
 	  sendMessage("You have logged in successfully \n Press 1 to add a fitness record \n Press 2 to add a meal \n Press 3 to view the last 10 meal records \n Press 4 to view the last 10 fitness records \n Press 5 to delete a record \n");
@@ -157,11 +170,13 @@ class ClientServiceThread extends Thread {
 	  
   }
   
+  //This deletes the record a user chooses
   public void delete() {
 	  
 	
   }
 
+  //This displays the last 10 fitness records
   public void displayFitness() {
 	  int i = 0;
 	  while (i < 10) {
@@ -175,6 +190,7 @@ class ClientServiceThread extends Thread {
 	
   }
 
+  //This displays the last 10 meal records
   public void displayMeal() {
 	  int i = 0;
 	  while (i < 10) {
@@ -187,6 +203,7 @@ class ClientServiceThread extends Thread {
 	 }
   }
 
+  //This adds a meal object
   public void addMeal() throws ClassNotFoundException, IOException {
 	  sendMessage("Please enter your meal type(Breakfast, Lunch etc.) : ");
 	  message = (String)in.readObject();
@@ -202,6 +219,7 @@ class ClientServiceThread extends Thread {
 	
   }
 
+  //This adds a fitness object
   public void addFitness() throws ClassNotFoundException, IOException {
 	  sendMessage("Please enter your fitness mode(Walking, Running etc.): ");
 	  message = (String)in.readObject();
@@ -231,6 +249,7 @@ public void run() {
 		do{
 			try
 			{
+				//displays the menu when the user first connects
 				sendMessage("Press 1 for new user\n Press 2 for returning user \n Press x to exit");
 				message = (String)in.readObject();
 				choice = new Integer(message);

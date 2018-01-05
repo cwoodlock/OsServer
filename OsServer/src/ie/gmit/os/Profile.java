@@ -1,5 +1,12 @@
 package ie.gmit.os;
 
+/*
+ * Colm Woodlock
+ * G00341460
+ * https://github.com/cwoodlock/OsServer
+ * This is a project for 3rd year module Operating Systems in GMIT
+ */
+
 //This class will have all the account data 
 
 public class Profile {
