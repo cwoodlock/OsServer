@@ -36,11 +36,13 @@ class ClientServiceThread extends Thread {
   int choice, tempint, choice2;
   Random rand = new Random();
   int messageInt;
-  double messageDouble;
+  double messageDouble, tempDur;
   ArrayList<Profile> list = new ArrayList<Profile>();
   ArrayList<Fitness> fitlist = new ArrayList<Fitness>();
   ArrayList<Meal> meallist = new ArrayList<Meal>();
   boolean flag = false;
+  String tempType, tempDesc;
+  String tempMode;
 
   ClientServiceThread(Socket s, int i) {
     clientSocket = s;
@@ -160,15 +162,28 @@ class ClientServiceThread extends Thread {
   }
 
   public void displayFitness() {
+	  int i = 0;
+	  while (i < 10) {
+		for (Fitness f : fitlist) {
+			tempMode = f.getMode();
+			tempDur = f.getDuration();
+			sendMessage("Meal Type: " + tempType + "\n Meal Description: " + tempDesc);
+			i++;		
+		}
+	 }
 	
   }
 
   public void displayMeal() {
-	for(int i = 0; i <= 10; i++) {
-		for(Meal a: meallist) {
-			
+	  int i = 0;
+	  while (i < 10) {
+		for (Meal m : meallist) {
+			tempType = m.getType();
+			tempDesc = m.getDescription();
+			sendMessage("Meal Type: " + tempType + "\n Meal Description: " + tempDesc);
+			i++;		
 		}
-	}
+	 }
   }
 
   public void addMeal() throws ClassNotFoundException, IOException {
