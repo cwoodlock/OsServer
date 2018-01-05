@@ -95,12 +95,18 @@ public class Profile {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
 	//toString method
 	@Override
 	public String toString() {
 		return "Profile [name=" + name + ", address=" + address + ", username=" + username + ", password=" + password
 				+ ", PPS=" + PPS + ", age=" + age + ", weight=" + weight + ", height=" + height + "]";
 	}
+	
+
+	
+	
+	
+	
+
 	
 }

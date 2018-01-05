@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 public class EchoServer {
   public static void main(String[] args) throws Exception {
-    ServerSocket m_ServerSocket = new ServerSocket(2004,10);
+	ServerSocket m_ServerSocket = new ServerSocket(2004,10);
     int id = 0;
     while (true) {
       Socket clientSocket = m_ServerSocket.accept();
@@ -38,6 +38,8 @@ class ClientServiceThread extends Thread {
   int messageInt;
   double messageDouble;
   ArrayList<Profile> list = new ArrayList<Profile>();
+  ArrayList<Fitness> fitlist = new ArrayList<Fitness>();
+  ArrayList<Meal> meallist = new ArrayList<Meal>();
   boolean flag = false;
 
   ClientServiceThread(Socket s, int i) {
@@ -92,17 +94,17 @@ class ClientServiceThread extends Thread {
 			break;
 		}
 	  
-	  sendMessage("Please enter your age: ");
-	  messageInt = (int)in.readObject();
-	  int age = messageInt;
+	 //sendMessage("Please enter your age: ");
+	 // messageInt = (int)in.readObject();
+	  int age = 15;//messageInt;
 	  
 	  sendMessage("Please enter your weight: ");
-	  messageDouble = (double)in.readObject();
-	  double weight = messageDouble;
+	  //messageDouble = (double)in.readObject();
+	  double weight = 22;//messageDouble;
 	  
 	  sendMessage("Please enter your height: ");
-	  messageDouble = (double)in.readObject();
-	  double height = messageDouble;
+	 // messageDouble = (double)in.readObject();
+	  double height = 125;//messageDouble;
 	  
 	  list.add(new Profile(name, address,username, password, PPS, age, weight, height));
 	  
@@ -162,15 +164,40 @@ class ClientServiceThread extends Thread {
   }
 
   public void displayMeal() {
+	for(int i = 0; i <= 10; i++) {
+		for(Meal a: meallist) {
+			
+		}
+	}
+  }
+
+  public void addMeal() throws ClassNotFoundException, IOException {
+	  sendMessage("Please enter your meal type(Breakfast, Lunch etc.) : ");
+	  message = (String)in.readObject();
+	  String type = message;
+	  
+	  sendMessage("Please enter a description to your meal(max 100 chars): ");
+	  message = (String)in.readObject();
+	  String description = message;
+	  
+	  meallist.add(new Meal(type, description));
+	  
+	  System.out.println("/n/n" + list);
 	
   }
 
-  public void addMeal() {
-	
-  }
-
-  public void addFitness() {
-	
+  public void addFitness() throws ClassNotFoundException, IOException {
+	  sendMessage("Please enter your fitness mode(Walking, Running etc.): ");
+	  message = (String)in.readObject();
+	  String mode = message;
+	  
+	  sendMessage("Please enter your fitness duration in hours(eg. hour and a half = 1.5): ");
+	  messageInt = (int)in.readObject();
+	  int duration = messageInt;
+	  
+	  fitlist.add(new Fitness(mode, duration));
+	  
+	  System.out.println("/n/n" + list);
   }
 
 public void run() {
@@ -188,7 +215,7 @@ public void run() {
 		do{
 			try
 			{
-				sendMessage("Press 1 for new user\n Press 2 for returning user \n");
+				sendMessage("Press 1 for new user\n Press 2 for returning user \n Press 3 to exit");
 				message = (String)in.readObject();
 				choice = new Integer(message);
 				
