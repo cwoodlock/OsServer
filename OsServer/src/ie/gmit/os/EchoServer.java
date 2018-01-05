@@ -158,6 +158,7 @@ class ClientServiceThread extends Thread {
   }
   
   public void delete() {
+	  
 	
   }
 
@@ -230,7 +231,7 @@ public void run() {
 		do{
 			try
 			{
-				sendMessage("Press 1 for new user\n Press 2 for returning user \n Press 3 to exit");
+				sendMessage("Press 1 for new user\n Press 2 for returning user \n Press x to exit");
 				message = (String)in.readObject();
 				choice = new Integer(message);
 				
@@ -247,7 +248,7 @@ public void run() {
 				System.err.println("Data received in unknown format");
 			}
 			
-    	}while(!message.equals("3"));
+    	}while(!message.equals("x"));
 		System.out.println("Ending Client : ID - " + clientID + " : Address - " + clientSocket.getInetAddress().getHostName());
     } catch (Exception e) {
       e.printStackTrace();
